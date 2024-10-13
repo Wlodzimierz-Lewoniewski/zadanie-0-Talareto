@@ -12,8 +12,8 @@ def process_documents_and_queries(documents,queries):
   for query in queries:
     if query in word_in_docs:
       occurrences = list(word_in_docs[query].items())
-      sorted_occurances = sorted(occurrences, key = lambda x: (-x[1], x[0]))
-      results.append([doc_index for doc_index, _ in sorted_occurences])
+      sorted_occurrences = sorted(occurrences, key = lambda x: (-x[1], x[0]))
+      results.append([doc_index for doc_index, _ in sorted_occurrences])
     else:
       results.append([])
 
