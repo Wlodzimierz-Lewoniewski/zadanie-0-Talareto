@@ -1,33 +1,29 @@
-import re
+import string
 from collections import defaultdict
 
-def process_documents_and_queries(documents, queries):
-    word_in_docs = defaultdict(lambda: defaultdict(int))
+def wyczysc_tekst(tekst):
+    return tekst.translate(str.maketrans('', '', string.punctuation)).lower().split()
 
-    for doc_index, document in enumerate(documents):
-        words = re.findall(r'\b\w+\b', document.lower())
-        for word in words:
-            word_in_docs[word][doc_index] += 1
+liczba_dokumentow = int(input())
+dokumenty = [input().strip() for _ in range(liczba_dokumentow)]
+liczba_slow = int(input())
+slowa = [input().strip().lower() for _ in range(liczba_slow)]
 
-    results = []
-    for query in queries:
-        query = query.lower()
-        if query in word_in_docs:
-            occurrences = list(word_in_docs[query].items())
-            sorted_occurrences = sorted(occurrences, key=lambda x: (-x[1], x[0]))
-            results.append([doc_index for doc_index, _ in sorted_occurrences])
-        else:
-            results.append([])
+# Inicjalizacja słownika do przechowywania wyników
+wyniki = defaultdict(list)
 
-    return results
+for index, dokument in enumerate(dokumenty):
+    oczyszczony_dokument = wyczysc_tekst(dokument)
+    zliczanie = defaultdict(int)
 
-n = int(input())
-documents = [input() for _ in range(n)]
+    for slowo in oczyszczony_dokument:
+        if slowo in slowa:
+            zliczanie[slowo] += 1
 
-m = int(input())
-queries = [input() for _ in range(m)]
+    for slowo in slowa:
+        if zliczanie[slowo] > 0:
+            wyniki[slowo].append(index + 1)  # Dodajemy 1, żeby indeks był od 1
 
-results = process_documents_and_queries(documents, queries)
-
-for result in results:
-    print(" ".join(map(str, result)))
+# Wyświetlenie wyników
+for slowo in slowa:
+    print(" ".join(map(str, wyniki[slowo])))
