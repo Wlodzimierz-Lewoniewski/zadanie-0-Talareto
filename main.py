@@ -5,7 +5,7 @@ def process_documents_and_queries(documents,queries):
 
   for doc_index, document in enumerate(documents):
     for word in document.split():
-      word_in_docs[word][doc_index] += 
+      word_in_docs[word][doc_index] += 1
 
   results = []
 
