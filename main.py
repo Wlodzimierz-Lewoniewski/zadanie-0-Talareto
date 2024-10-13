@@ -1,10 +1,12 @@
+import re
 from collections import defaultdict
 
 def process_documents_and_queries(documents, queries):
     word_in_docs = defaultdict(lambda: defaultdict(int))
 
     for doc_index, document in enumerate(documents):
-        for word in document.lower().split():
+        words = re.findall(r'\b\w+\b', document.lower())
+        for word in words:
             word_in_docs[word][doc_index] += 1
 
     results = []
