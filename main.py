@@ -1,7 +1,7 @@
 from collections import defaultdict
 
 def process_documents_and_queries(documents,queries):
-  word_in_docs = deafultdict(lambda:deafultdict(int))
+  word_in_docs = defaultdict(lambda:defaultdict(int))
 
   for doc_index, document in enumerate(documents):
     for word in document.split():
